@@ -53,12 +53,9 @@ RUN apk --no-cache --no-progress upgrade && \
     rm -rf /tmp/*
 
 COPY torproxy.sh /usr/bin/
-
+COPY checkProxy.sh /usr/bin/
 EXPOSE 8118 9050 9051
 
-HEALTHCHECK --interval=60s --timeout=15s --start-period=20s \
-            CMD curl -sx localhost:8118 'https://check.torproject.org/' | \
-            grep -qm1 Congratulations
 
 VOLUME ["/etc/tor", "/var/lib/tor"]
 
