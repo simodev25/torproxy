@@ -6,7 +6,7 @@ response=$(curl --socks5 localhost:9050 --socks5-hostname localhost:9050 -A "$UA
 
 if [ `echo $response | grep -c $2 ` -gt 0 ]
 then
-  echo "Success"
+  exit 1
 else
-  echo "Fail";
+  exit 0
 fi
