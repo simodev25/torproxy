@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-response=$(curl $1 -H  -H 'pragma: no-cache' -H 'cache-control: no-cache' --compressed)
+UA=$(cat ua.txt | sort -R  | head -1)
+
+response=$(curl --socks5 localhost:9050 --socks5-hostname localhost:9050 -A "$UA"  $1  --compressed)
 
 if [ `echo $response | grep -c $2 ` -gt 0 ]
 then
