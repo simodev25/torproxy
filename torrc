@@ -1,0 +1,41 @@
+ControlSocket /etc/tor/run/control
+ControlSocketsGroupWritable 1
+ControlPort 0.0.0.0:9051
+CookieAuthentication 1
+CookieAuthFileGroupReadable 1
+CookieAuthFile /etc/tor/run/control.authcookie
+DataDirectory /var/lib/tor
+RunAsDaemon 0
+User tor
+AutomapHostsOnResolve 1
+ExitPolicy reject *:*
+VirtualAddrNetworkIPv4 10.192.0.0/10
+DNSPort 5353
+SocksPort 0.0.0.0:9050 IsolateDestAddr
+TransPort 0.0.0.0:9040
+HashedControlPassword 16:4CCA80A4D29385AA603B5423A06753F3C500FB11441254033979815B78
+
+# disable adaptive circuit building timeout (we want to set it statically)
+LearnCircuitBuildTimeout 0
+# Try to build a circuit for 40 seconds (so it will try 4 time)
+CircuitBuildTimeout 40
+# Try a new circuit if it does not answer after 10 seconds
+CircuitStreamTimeout 10
+# Only use very long stable entry nodes such as the one managed by
+# TorServers and NoiseTor
+StrictNodes 1
+EntryNodes noiseexit01a,noiseexit01b,noiseexit01c,noiseexit01d,manning1,manning2,wannabe,bolobolo1,wau,sofia,gorz,chomsky,rainbowwarrior,lumumba,assk,assk2,raskin
+# Close HS connections that does not works properly
+CloseHSClientCircuitsImmediatelyOnTimeout 1
+CloseHSServiceRendCircuitsImmediatelyOnTimeout 1
+# Use also circuits that are 2 hours old because we need stable and long term lived ones
+MaxCircuitDirtiness 7200
+# Enable more than just 32 circuits pending, because we have a lot of requests coming
+MaxClientCircuitsPending 1024
+# Reduce the timeout for socks client connection to 41 seconds (default 2 minutes), just 1seconds more than CircuitBuildTimeout
+SocksTimeout 81
+# Fetch directory authority immediately, to reduce the impact of Tor process reload
+FetchDirInfoEarly 1
+FetchDirInfoExtraEarly 1
+# Disable Safe Logging (for debugging purpose, during the analysis of performance improvements)
+SafeLogging 0
