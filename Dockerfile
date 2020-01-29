@@ -54,6 +54,7 @@ RUN apk --no-cache --no-progress upgrade && \
 
 COPY torproxy.sh /usr/bin/
 COPY checkProxy.sh /usr/bin/
+COPY ua.txt /usr/bin/
 EXPOSE 8118 9050 9051
 
 
