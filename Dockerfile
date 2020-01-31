@@ -38,7 +38,7 @@ RUN apk --no-cache --no-progress upgrade && \
     chmod 0750 /etc/tor/run && \
     rm -rf /tmp/*
 
-COPY torrc /etc/tor/
+
 COPY torproxy.sh /usr/bin/
 COPY checkProxy.sh /usr/bin/
 COPY ua.txt /usr/bin/
